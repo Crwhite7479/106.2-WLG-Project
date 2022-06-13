@@ -11,7 +11,7 @@ PImage mapHallway1, mapHallway2, mapBedroom, mapKitchen, mapStorage, mapBathroom
 PImage menuBackground, mainMenuImage, loadGameSlots, saveGameSlots, menuOptions, quitMenuImage;
 
 // Rooms:
-PImage shed, hallway1, hallway2, bedroom, kitchen, storage, bathroom, upper_lab, lower_lab, office;
+PImage shed, hallway1, hallway2, bedroom, kitchen, storage, bathroom, upper_lab, lower_lab, office, basement_stairs;
 
 // Inventory items:
 PImage handKeyIcon, keyIcon, blueKeyCardIcon, pinkKeyCardIcon, pliersIcon;
@@ -169,6 +169,7 @@ void setup()
   upper_lab = loadImage("Lab1.png");
   lower_lab = loadImage("Lab2_Temp.png");
   office = loadImage("Office.png");
+  basement_stairs = loadImage("BasementStairs.png");
   
 // Inventory:
   handKeyIcon = loadImage("handKeyIcon.PNG");
@@ -222,6 +223,10 @@ else if (selection == 8){
   
 else if(selection == 9){
   Office();
+  }
+  
+else if (selection == 10){
+  Basement_Stairs();
   }
   
 else if (selection == 73){
@@ -641,14 +646,8 @@ else if(selection == 7){
       {
         if ((mouseY >= 57) && (mouseY <= 452))
         {
-          if(has_bluecard == true){
-          selection = 8;
-          Lower_Lab();
-          }
-          
-          else {
-          //image(,,);
-          }
+           selection = 10;
+           Basement_Stairs();
         }
       }
 
@@ -773,6 +772,46 @@ else if(selection == 9){
         }
       }      
   
+}
+
+// BASEMENT STAIRS INTERACTIONS
+else if (selection == 10){
+  // LEAVE ROOM BUTTON
+        if ((mouseX >= 581) && (mouseX <= 937))
+        {
+        if ((mouseY >= 777) && (mouseY <= 838))
+        {
+          selection = 7;
+          Upper_Lab();
+        }
+      }
+      
+  // MENU BUTTON
+        if ((mouseX >= 1530) && (mouseX <= 1838))
+      {
+        if ((mouseY >= 692) && (mouseY <= 756))
+        {
+          selection = 99;
+          Pause_Menu();
+        }
+      }  
+      
+  // KEYPAD INTERATION
+        if ((mouseX >= 201) && (mouseX <= 260))
+      {
+        if ((mouseY >= 231) && (mouseY <= 429))
+        {
+                if(has_bluecard == true){
+          selection = 8;
+          Lower_Lab();
+          }
+          
+          else {
+          //image(,,);
+          }
+        }
+      }      
+      
 }
 
 //  QUIT GAME MENU INTERACTIONS
@@ -905,7 +944,12 @@ else if (selection == 99){
           else if (prev_Room == 9){
           selection = 9;
           Office();
-          }          
+          } 
+          
+          else if (prev_Room == 10){
+          selection = 10;
+          Basement_Stairs();
+          } 
         }
       }
       
