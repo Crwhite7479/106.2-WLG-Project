@@ -745,11 +745,12 @@ else if(selection == 9){
         {
           if (has_cuttingtool == true){
           has_fingerkey = true;
+          //image(,,);
           }
           
      //     else {
-          
-          
+     //            image(,,);
+     //     
      //     }
    
         }
