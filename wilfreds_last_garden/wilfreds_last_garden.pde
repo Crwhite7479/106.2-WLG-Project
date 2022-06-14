@@ -5,7 +5,7 @@ import processing.sound.SoundFile;
 PImage defaultScreen;
 
 // The different maps:
-PImage mapHallway1, mapHallway2, mapBedroom, mapKitchen, mapStorage, mapBathroom, mapLab1, mapCleanRoom, mapLab2, mapOffice, glitch1, glitch2, glitch3;
+PImage mapHallway1, mapHallway2, mapBedroom, mapKitchen, mapStorage, mapBathroom, mapLab1, mapCleanRoom, mapLab2, mapOffice, glitch1, glitch2, glitch3, mapBasementStairs;
 
 // Menus:
 PImage menuBackground, mainMenuImage, loadGameSlots, saveGameSlots, menuOptions, quitMenuImage;
@@ -146,6 +146,7 @@ void setup()
   mapCleanRoom = loadImage("mapCleanRoom.png");
   mapLab2 = loadImage("mapLab2.png");
   mapOffice = loadImage("mapOffice.png");
+  mapBasementStairs = loadImage("mapBasementStairs.png");
   glitch1 = loadImage("glitch1.jpg");
   glitch2 = loadImage("glitch2.jpg");
   glitch3 = loadImage("glitch3.jpg");

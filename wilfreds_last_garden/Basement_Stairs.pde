@@ -5,7 +5,7 @@ void Basement_Stairs(){
   
 //Room & map
     image (basement_stairs, 50,50);
-    image (mapBathroom, 1499,770);
+    image (mapBasementStairs, 1499,770);
     
     //Inventory
     
