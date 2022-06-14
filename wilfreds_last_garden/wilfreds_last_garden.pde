@@ -11,11 +11,7 @@ PImage mapHallway1, mapHallway2, mapBedroom, mapKitchen, mapStorage, mapBathroom
 PImage menuBackground, mainMenuImage, loadGameSlots, saveGameSlots, menuOptions, quitMenuImage;
 
 // Rooms:
-<<<<<<< Updated upstream
 PImage shed, hallway1, hallway2, bedroom, kitchen, storage, bathroom, upper_lab, lower_lab, office, basement_stairs;
-=======
-PImage shed, hallway1, hallway2, bedroom, kitchen, storage, bathroom, upper_lab, lower_lab, office;
->>>>>>> Stashed changes
 
 // Inventory items:
 PImage handKeyIcon, keyIcon, blueKeyCardIcon, pinkKeyCardIcon, pliersIcon;
@@ -63,15 +59,9 @@ void setup()
   path = sketchPath(audioName);
   music = new SoundFile(this, path);
   music.loop();
-<<<<<<< Updated upstream
   
 // LOAD THE IMAGES:
   
-=======
-  
-// LOAD THE IMAGES:
-  
->>>>>>> Stashed changes
 // The default screen:
   defaultScreen = loadImage("defaultScreen.PNG");
   
@@ -180,10 +170,7 @@ void setup()
   upper_lab = loadImage("Lab1.png");
   lower_lab = loadImage("Lab2_Temp.png");
   office = loadImage("Office.png");
-<<<<<<< Updated upstream
   basement_stairs = loadImage("BasementStairs.png");
-=======
->>>>>>> Stashed changes
   
 // Inventory:
   handKeyIcon = loadImage("handKeyIcon.PNG");
@@ -239,7 +226,6 @@ else if(selection == 9){
   Office();
   }
   
-<<<<<<< Updated upstream
 else if (selection == 10){
   Basement_Stairs();
   }
@@ -272,35 +258,6 @@ void mouseClicked(){
 // INTRO SHED INTERACTIONS
   if (selection == 0){
   
-=======
-else if (selection == 73){
-  Quit_Menu();
-  }
-  
-else if (selection == 96){
-  Options_Menu();
-  }
-  
-else if (selection == 97){
-  Load_Menu();
-  }
-  
-else if (selection == 98){
-  Save_Menu();
-  }
-
-else if (selection == 99){
-  Pause_Menu();
-  }
-  
-//  FRAME COUNTER
-  current_Frame += 1;
-}
-
-void mouseClicked(){  
-// INTRO SHED INTERACTIONS
-  if (selection == 0){
-  
   // MENU BUTTON
         if ((mouseX >= 1530) && (mouseX <= 1838))
       {
@@ -406,313 +363,6 @@ else if(selection == 2){
         }
       }
       
-  // BATHROOM DOOR INTERACTION
-      if ((mouseX >= 246) && (mouseX <= 465))
-      {
-        if ((mouseY >= 195) && (mouseY <= 738))
-        {
-          selection = 6;
-          Bathroom();
-        }
-      }
-      
-  //  UPPER LAB DOOR INTERACTIONS
-      if ((mouseX >= 1014) && (mouseX <= 1262))
-      {
-        if ((mouseY >= 79) && (mouseY <= 701))
-        {
-          selection = 7;
-          Upper_Lab();
-        }
-      }
-
-}
-
-//  BEDROOM INTERACTIONS
-else if(selection == 3){
-  // LEAVE ROOM BUTTON
-        if ((mouseX >= 581) && (mouseX <= 937))
-        {
-        if ((mouseY >= 777) && (mouseY <= 838))
-        {
-          selection = 1;
-          Hallway1();
-        }
-      }
-  
-  // MENU BUTTON
-        if ((mouseX >= 1530) && (mouseX <= 1838))
-      {
-        if ((mouseY >= 692) && (mouseY <= 756))
-        {
-          selection = 99;
-          Pause_Menu();
-        }
-      }
-     
-  // Found blue_key interaction
-        if ((mouseX >= 425) && (mouseX <= 465))
-      {
-        if ((mouseY >= 587) && (mouseY <= 613))
-        {
-          has_bluecard = true;
-          //image(,,);
-        }
-      } 
-
-  // Journals interaction
-        if ((mouseX >= 693) && (mouseX <= 856))
-      {
-        if ((mouseY >= 447) && (mouseY <= 650))
-        {
-          // image(,,);
-        }
-      }       
- 
-  // Backpack interaction
-        if ((mouseX >= 93) && (mouseX <= 286))
-      {
-        if ((mouseY >= 441) && (mouseY <= 608))
-        {
-          // image(,,);
-        }
-      }  
- 
-  // Couch interaction
-        if ((mouseX >= 951) && (mouseX <= 1451))
-      {
-        if ((mouseY >= 150) && (mouseY <= 516))
-        {
-          // image(,,);
-        }
-      }        
-      
-}
-
-// KITCHEN ROOM INTERACTIONS
-else if (selection == 4){
-  // LEAVE ROOM BUTTON
-        if ((mouseX >= 581) && (mouseX <= 937))
-        {
-        if ((mouseY >= 777) && (mouseY <= 838))
-        {
-          selection = 1;
-          Hallway1();
-        }
-      }
- 
->>>>>>> Stashed changes
-  // MENU BUTTON
-        if ((mouseX >= 1530) && (mouseX <= 1838))
-      {
-        if ((mouseY >= 692) && (mouseY <= 756))
-        {
-          selection = 99;
-          Pause_Menu();
-        }
-      }
-<<<<<<< Updated upstream
-  
-  // SHED DOOR INTERACTION
-      if ((mouseX >= 574) && (mouseX <= 835))
-      {
-        if ((mouseY >= 194) && (mouseY <= 658))
-=======
-      
-  // FRIDGE INTERACTION
-        if ((mouseX >= 641.21) && (mouseX <= 862.21))
-      {
-        if ((mouseY >= 83.13) && (mouseY <= 433.13))
-        {
-          has_storagekey = true;
-          //image(,,);                    
-        }
-      }      
-
-  // DINING TABLE INTERACTION
-        if ((mouseX >= 983) && (mouseX <= 1476))
-      {
-        if ((mouseY >= 318) && (mouseY <= 619))
-        {
-          //image(,,);
-        }
-      }
-
-  // STOVE INTERACTION
-        if ((mouseX >= 94) && (mouseX <= 392))
-      {
-        if ((mouseY >= 256) && (mouseY <= 665))
-        {
-          //image(,,);
-        }
-      }      
-      
-}
-
-// STORAGE ROOM INTERACTIONS
-else if (selection == 5){
-  // LEAVE ROOM BUTTON
-        if ((mouseX >= 581) && (mouseX <= 937))
-        {
-        if ((mouseY >= 777) && (mouseY <= 838))
->>>>>>> Stashed changes
-        {
-          selection = 1;
-          Hallway1();
-        }
-      }
-<<<<<<< Updated upstream
-  }
-  
-// HALLWAY 1 INTERACTIONS     
-  else if(selection == 1){
-// LEAVE ROOM BUTTON                                (disabled until endgame)
-//        if ((mouseX >= 581) && (mouseX <= 937))
-//        {
-//        if ((mouseY >= 777) && (mouseY <= 838))
-//        {
-//          
-//        }
-//      }
-  
-=======
-
->>>>>>> Stashed changes
-  // MENU BUTTON
-        if ((mouseX >= 1530) && (mouseX <= 1838))
-      {
-        if ((mouseY >= 692) && (mouseY <= 756))
-        {
-          selection = 99;
-          Pause_Menu();
-        }
-      }
-      
-<<<<<<< Updated upstream
-  // STORAGE DOOR INTERACTION
-      if ((mouseX >= 549) && (mouseX <= 658))
-      {
-        if ((mouseY >= 276) && (mouseY <= 497))
-        {
-          selection = 5;
-          Storage();
-        }
-      }
-
-  // KITCHEN DOOR INTERACTION
-      if ((mouseX >= 359) && (mouseX <= 461))
-      {
-        if ((mouseY >= 236) && (mouseY <= 563))
-        {
-          selection = 4;
-          Kitchen();
-        }
-      }
-
-  // BEDROOM DOOR INTERACTION
-      if ((mouseX >= 68) && (mouseX <= 291))
-      {
-        if ((mouseY >= 128) && (mouseY <= 749))
-        {
-          selection = 3;
-          Bedroom();
-        }
-      }
-
-  // HALLWAY 2 ENTRY
-      if ((mouseX >= 684) && (mouseX <= 746))
-      {
-        if ((mouseY >= 211) && (mouseY <= 540))
-        {
-          selection = 2;
-          Hallway2();
-        }
-      }
-}
-
-//  HALLWAY 2 INTERACTIONS
-else if(selection == 2){
-=======
-  // RED KEYCARD INTERACTION
-        if ((mouseX >= 928.57) && (mouseX <= 967.57))
-      {
-        if ((mouseY >= 609.3) && (mouseY <= 658.3))
-        {
-          has_redcard = true;
-          //image(,,);
-        }
-      }
-
-  // DUCT TAPE INTERACTION
-        if ((mouseX >= 882) && (mouseX <= 962))
-      {
-        if ((mouseY >= 309) && (mouseY <= 361))
-        {
-          //image(,,);
-        }
-      }      
- 
-  // BOOKS INTERACTION
-        if ((mouseX >= 1195) && (mouseX <= 1411))
-      {
-        if ((mouseY >= 291) && (mouseY <= 458))
-        {
-          //image(,,);
-        }
-      }       
-
-  // SHOEBOX INTERACTION
-        if ((mouseX >= 808) && (mouseX <= 939))
-      {
-        if ((mouseY >= 682) && (mouseY <= 761))
-        {
-          //image(,,);
-        }
-      }       
-
-  // FURNITURE PILE INTERACTION
-        if ((mouseX >= 55) && (mouseX <= 693))
-      {
-        if ((mouseY >= 55) && (mouseY <= 766))
-        {
-          //image(,,);
-        }
-      }      
-      
-}
-
-// BATHROOM INTERACTIONS
-else if (selection == 6){
->>>>>>> Stashed changes
-  // LEAVE ROOM BUTTON
-        if ((mouseX >= 581) && (mouseX <= 937))
-        {
-        if ((mouseY >= 777) && (mouseY <= 838))
-        {
-<<<<<<< Updated upstream
-          selection = 1;
-          Hallway1();
-        }
-      }
-  
-=======
-          selection = 2;
-          Hallway2();
-        }
-      }
-
->>>>>>> Stashed changes
-  // MENU BUTTON
-        if ((mouseX >= 1530) && (mouseX <= 1838))
-      {
-        if ((mouseY >= 692) && (mouseY <= 756))
-        {
-          selection = 99;
-          Pause_Menu();
-        }
-      }
-      
-<<<<<<< Updated upstream
   // BATHROOM DOOR INTERACTION
       if ((mouseX >= 246) && (mouseX <= 465))
       {
@@ -970,38 +620,6 @@ else if (selection == 6){
       
 }
 
-=======
-  // TOILET INTERACTION
-        if ((mouseX >= 633) && (mouseX <= 849))
-      {
-        if ((mouseY >= 253) && (mouseY <= 618))
-        {
-          has_cuttingtool = true;
-          //image(,,);
-        }
-      }
-      
-  // SINK INTERACTION
-        if ((mouseX >= 994) && (mouseX <= 1284))
-      {
-        if ((mouseY >= 66) && (mouseY <= 502))
-        {
-          //image(,,);
-        }
-      }      
-      
-  // BATHTUB INTERACTION
-        if ((mouseX >= 119) && (mouseX <= 574))
-      {
-        if ((mouseY >= 469) && (mouseY <= 767))
-        {
-          //image(,,);
-        }
-      }
-      
-}
-
->>>>>>> Stashed changes
 // UPPER LAB INTERACTIONS
 else if(selection == 7){
   // LEAVE ROOM BUTTON
@@ -1029,19 +647,8 @@ else if(selection == 7){
       {
         if ((mouseY >= 57) && (mouseY <= 452))
         {
-<<<<<<< Updated upstream
            selection = 10;
            Basement_Stairs();
-=======
-          if(has_bluecard == true){
-          selection = 8;
-          Lower_Lab();
-          }
-          
-          else {
-          //image(,,);
-          }
->>>>>>> Stashed changes
         }
       }
 
@@ -1138,12 +745,11 @@ else if(selection == 9){
         {
           if (has_cuttingtool == true){
           has_fingerkey = true;
-          //image(,,);
           }
           
      //     else {
-     //            image(,,);
-     //     
+          
+          
      //     }
    
         }
@@ -1169,7 +775,6 @@ else if(selection == 9){
   
 }
 
-<<<<<<< Updated upstream
 // BASEMENT STAIRS INTERACTIONS
 else if (selection == 10){
   // LEAVE ROOM BUTTON
@@ -1210,8 +815,6 @@ else if (selection == 10){
       
 }
 
-=======
->>>>>>> Stashed changes
 //  QUIT GAME MENU INTERACTIONS
 else if (selection == 73){
   //  GO BACK BUTTON
@@ -1342,16 +945,12 @@ else if (selection == 99){
           else if (prev_Room == 9){
           selection = 9;
           Office();
-<<<<<<< Updated upstream
           } 
           
           else if (prev_Room == 10){
           selection = 10;
           Basement_Stairs();
           } 
-=======
-          }          
->>>>>>> Stashed changes
         }
       }
       
