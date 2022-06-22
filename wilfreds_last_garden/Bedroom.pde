@@ -4,7 +4,15 @@ void Bedroom(){
     image(defaultScreen, 0, 0);
  
 //Room & map
+
+  if (has_bluecard == false){
     image (bedroom, 50,50);
+  }
+    
+    else if (has_bluecard == true){
+      image (bedroom_nocard,50,50);
+    }
+    
     image (mapBedroom, 1499,770);
     
     //Inventory
@@ -59,6 +67,46 @@ void Bedroom(){
             }
           }
         }
-        
+ 
+  // Found blue_key text description
+        if ((mouseX >= 425) && (mouseX <= 465))
+      {
+        if ((mouseY >= 587) && (mouseY <= 613))
+        { 
+          if (has_bluecard == false){
+          image(bluecard_Text,49.25,844.75);
+          }
+        }
+      } 
+
+  // Journals text description
+        if ((mouseX >= 693) && (mouseX <= 856))
+      {
+        if ((mouseY >= 447) && (mouseY <= 650))
+        {
+          image(journals_Text,49.25,844.75);
+        }
+      }       
+ 
+  // Backpack text description
+        if ((mouseX >= 93) && (mouseX <= 286))
+      {
+        if ((mouseY >= 441) && (mouseY <= 608))
+        {
+          image(notefound_Text,49.25,844.75);
+            if (mousePressed == true){
+            image(bedroom_note,50,50);
+          }
+        }
+      }  
+ 
+  // Couch text description
+        if ((mouseX >= 951) && (mouseX <= 1451))
+      {
+        if ((mouseY >= 150) && (mouseY <= 516))
+        {
+          image(couch_Text,49.25,844.75);
+        }
+      }
       
 }

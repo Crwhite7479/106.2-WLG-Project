@@ -7,6 +7,7 @@ void Shed_Entrance(){
 //Room & map
     image (shed, 50,50);
     image (glitch1, 1499,770);
+    image (intro_Text,49.25,844.75);
 
     //Inventory
     

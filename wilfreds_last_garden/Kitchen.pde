@@ -6,6 +6,9 @@ void Kitchen(){
 //Room & map
     image (kitchen, 50,50);
     image (mapKitchen, 1499,770);
+    image (kitchenSpiders_Text,49.25,844.75);
+    
+
     
     //Inventory
     
@@ -59,6 +62,38 @@ void Kitchen(){
             }
           }
         }
-        
+
+  // FRIDGE TEXT DESCRIPTION
+        if ((mouseX >= 641.21) && (mouseX <= 862.21))
+      {
+        if ((mouseY >= 83.13) && (mouseY <= 433.13))
+        { 
+          if (has_storagekey == false){
+          image(fridgekey_Text,49.25,844.75);  
+          }
+          
+          else if (has_storagekey == true){
+          image(fridgesmell_Text,49.25,844.75);
+          }
+        }
+      }      
+
+  // DINING TABLE TEXT DESCRIPTION
+        if ((mouseX >= 983) && (mouseX <= 1476))
+      {
+        if ((mouseY >= 318) && (mouseY <= 619))
+        {
+          image(table_Text,49.25,844.75);
+        }
+      }
+
+  // STOVE TEXT DESCRIPTION
+        if ((mouseX >= 94) && (mouseX <= 392))
+      {
+        if ((mouseY >= 256) && (mouseY <= 665))
+        {
+          image(stove_Text,49.25,844.75);
+        }
+      }        
       
 }

@@ -48,6 +48,56 @@ void Hallway1(){
         }
       } 
       
+if (infected == false){
+  //Leave Room button reactivates to allow game victory
+  image(exitroom_clicked,576,775,365,65);
+          if ((mouseX >= 581) && (mouseX <= 937))
+        {
+          if ((mouseY >= 777) && (mouseY <= 838))
+          {
+            image(exitroom_mo,576,775,365,78);
+            if (mousePressed){
+                image(exitroom_clicked,576,775,365,65);
+            }
+          }
+        }
+}
+
+  // STORAGE DOOR OPEN ANIMATION:
+      if ((mouseX >= 549) && (mouseX <= 658))
+      {
+        if ((mouseY >= 276) && (mouseY <= 497))
+        {
+          if (has_storagekey == true && mousePressed == true){
+          image(H1_storage_open,50,50);
+          }
+          
+          if (has_storagekey == false){
+          image(doorLocked_Text,49.25,844.75);
+          }
+        }        
+      }
       
+  // KITCHEN DOOR OPEN ANIMATION:
+      if ((mouseX >= 359) && (mouseX <= 461))
+      {
+        if ((mouseY >= 236) && (mouseY <= 563))
+        {
+          if (mousePressed == true){
+            image(H1_kitchen_open,50,50);
+          }
+        }
+      } 
+      
+  // BEDROOM DOOR OPEN ANIMATION:
+      if ((mouseX >= 68) && (mouseX <= 291))
+      {
+        if ((mouseY >= 128) && (mouseY <= 749))
+        {
+            if (mousePressed == true){
+            image(H1_bedroom_open,50,50);
+          }
+        }
+      }      
       
 }

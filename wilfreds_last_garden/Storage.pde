@@ -4,7 +4,14 @@ void Storage(){
     image(defaultScreen, 0, 0);
     
 //Room & map  
+  if (has_redcard == false){
     image (storage, 50,50);
+  }
+    
+    else if (has_redcard == true ){
+       image (storage_nocard,50,50);
+    }
+    
     image (mapStorage, 1499,770);
 
     //Inventory
@@ -59,6 +66,52 @@ void Storage(){
             }
           }
         }
-              
+
+  // RED KEYCARD INTERACTION
+        if ((mouseX >= 928.57) && (mouseX <= 967.57))
+      {
+        if ((mouseY >= 609.3) && (mouseY <= 658.3))
+        {
+          if (has_redcard == false){
+          image(redcard_Text,49.25,844.75);
+          }
+        }
+      }
+
+  // DUCT TAPE INTERACTION
+        if ((mouseX >= 882) && (mouseX <= 962))
+      {
+        if ((mouseY >= 309) && (mouseY <= 361))
+        {
+          image(ducttape_Text,49.25,844.75);
+        }
+      }      
+ 
+  // BOOKS INTERACTION
+        if ((mouseX >= 1195) && (mouseX <= 1411))
+      {
+        if ((mouseY >= 291) && (mouseY <= 458))
+        {
+          image(novels_Text,49.25,844.75);
+        }
+      }       
+
+  // SHOEBOX INTERACTION
+        if ((mouseX >= 808) && (mouseX <= 939))
+      {
+        if ((mouseY >= 682) && (mouseY <= 761))
+        {
+          image(shoebox_Text,49.25,844.75);
+        }
+      }       
+
+  // FURNITURE PILE INTERACTION
+        if ((mouseX >= 55) && (mouseX <= 693))
+      {
+        if ((mouseY >= 55) && (mouseY <= 766))
+        {
+          image(genfurniture_Text,49.25,844.75);
+        }
+      }              
       
 }

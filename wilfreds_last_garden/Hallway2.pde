@@ -60,5 +60,15 @@ void Hallway2(){
           }
         }
         
+  // BATHROOM DOOR OPEN ANIMATION
+      if ((mouseX >= 246) && (mouseX <= 465))
+      {
+        if ((mouseY >= 195) && (mouseY <= 738))
+        {
+          if (mousePressed == true){
+              image(H2_bathroom_open,50,50);
+          }
+        }
+      }        
       
 }

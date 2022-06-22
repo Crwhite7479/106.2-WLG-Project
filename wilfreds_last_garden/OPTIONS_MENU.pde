@@ -7,6 +7,7 @@ void Options_Menu(){
     image (menuBackground,50,50);
     image (menuOptions,429,190);
     image (glitch1,1499,770);
+    
 
     //Inventory
     
@@ -69,6 +70,15 @@ void Options_Menu(){
         }
       } 
         
-           
+//Mute checkbox states:
+
+  if (music_playing == true){
+      image(checkbox_empty,979,316);
+  }
+  
+  else if (music_playing == false){
+      image(checkbox_tick,979,316);
+  }
+
                  
 }
