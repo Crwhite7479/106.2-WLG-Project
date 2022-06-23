@@ -59,6 +59,30 @@ void Basement_Stairs(){
             }
           }
         }
+
         
+  // KEYPAD TEXT DESCRIPTION
+        if ((mouseX >= 201) && (mouseX <= 260))
+      {
+        if ((mouseY >= 231) && (mouseY <= 429))
+        {
+            image(cardscanner_Text,49.25,844.75);
+        }
+      }      
+ 
+  // LOWER LAB DOOR ANIMATOR
+        if ((mouseX >= 328) && (mouseX <= 861))
+      {
+        if ((mouseY >= 52) && (mouseY <= 509))
+        {
+          if (LowerLab_Locked == false && mousePressed == true){
+          image(basementstairs_door_open,50,50);
+          }
+          
+          if (LowerLab_Locked == true){
+          image(cleaningdoorLocked_Text,49.25,844.75);
+          }         
+        }
+      }        
       
 }

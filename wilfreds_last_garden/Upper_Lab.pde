@@ -60,6 +60,49 @@ void Upper_Lab(){
           }
         }
               
+  //  SECRET CABINET DOOR OPEN ANIMATION
+        if ((mouseX >= 713) && (mouseX <= 903))
+      {
+        if ((mouseY >= 66) && (mouseY <= 479))
+        {
+          image(Lcupboard_Text,49.25,844.75);
+           if (mousePressed == true){
+             image(H2_cupboard_open,50,50);
+           }
+        }
+      }
       
+  // DOCUMENTS INTERACTIONS
+        if ((mouseX >= 489) && (mouseX <= 614))
+      {
+        if ((mouseY >= 281) && (mouseY <= 349))
+        {
+          image(notefound_Text,49.25,844.75);
+          if (mousePressed == true){
+            image(upperlab_note,50,50);
+          }
+        }
+      }      
+
+  // POST-BOARD INTERACTIONS
+        if ((mouseX >= 167) && (mouseX <= 313))
+      {
+        if ((mouseY >= 102) && (mouseY <= 206))
+        {
+          image(noticeboard_Text,49.25,844.75);
+            if (mousePressed == true){
+            image(lab_noticeboard,50,50);
+          }
+        }
+      }         
+ 
+  // LAB PC INTERACTIONS
+        if ((mouseX >= 987) && (mouseX <= 1138))
+      {
+        if ((mouseY >= 367) && (mouseY <= 598))
+        {
+          image(labComp_Text,49.25,844.75);
+        }
+      }      
 
 }

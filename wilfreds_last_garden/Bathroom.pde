@@ -4,7 +4,7 @@ void Bathroom(){
     image(defaultScreen, 0, 0);
   
 //Room & map
-    image (bathroom, 50,50);
+    image (bathroom,50,50);
     image (mapBathroom, 1499,770);
     
     //Inventory
@@ -60,5 +60,38 @@ void Bathroom(){
           }
         }
         
+  // SINK TEXT DESCRIPTION
+        if ((mouseX >= 994) && (mouseX <= 1284))
+      {
+        if ((mouseY >= 66) && (mouseY <= 502))
+        {         
+          image(sink_Text,49.25,844.75);          
+        }
+      }
+
+  // BATHTUB TEXT DESCRIPTION
+        if ((mouseX >= 119) && (mouseX <= 574))
+      {
+        if ((mouseY >= 469) && (mouseY <= 767))
+        {          
+          image(bathtub_Text,49.25,844.75);          
+        }
+      }  
+      
+  // TOILET INTERACTION
+        if ((mouseX >= 633) && (mouseX <= 849))
+      {
+        if ((mouseY >= 253) && (mouseY <= 618))
+        { 
+          if (has_cuttingtool == false){
+            image(toiletmo_Text,49.25,844.75);
+          }
+          
+          else if (has_cuttingtool == true){
+            image(toilet1_Text,49.25,844.75);
+          }
+
+        }
+      }      
       
 }

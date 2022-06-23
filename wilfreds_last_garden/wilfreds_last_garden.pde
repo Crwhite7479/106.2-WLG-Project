@@ -1,4 +1,5 @@
 import processing.sound.SoundFile;
+
 // IMAGES TO LOAD:
 
 // The main UI image:
@@ -8,10 +9,19 @@ PImage defaultScreen;
 PImage mapHallway1, mapHallway2, mapBedroom, mapKitchen, mapStorage, mapBathroom, mapLab1, mapCleanRoom, mapLab2, mapOffice, glitch1, glitch2, glitch3, mapBasementStairs;
 
 // Menus:
-PImage menuBackground, mainMenuImage, loadGameSlots, saveGameSlots, menuOptions, quitMenuImage;
+PImage menuBackground, mainMenuImage, loadGameSlots, saveGameSlots, menuOptions, quitMenuImage, checkbox_empty, checkbox_tick;
 
 // Rooms:
-PImage shed, hallway1, hallway2, bedroom, kitchen, storage, bathroom, upper_lab, lower_lab, office, basement_stairs;
+PImage shed, hallway1, hallway2, bedroom, bedroom_nocard, kitchen, storage, storage_nocard, bathroom, upper_lab, lower_lab, office, office_nohand, basement_stairs, stairwell1, clean_room, entry_stairs, victory_screen;
+
+// Rooms with doors open:
+PImage H1_storage_open, H1_kitchen_open, H1_bedroom_open, H2_bathroom_open, H2_cupboard_open, lab2_office_open, basementstairs_door_open;
+
+//Spray room screens:
+PImage spray1, spray2, spray3;
+
+// Readable Notes:
+PImage upperlab_note, office_note, bedroom_note, lab_noticeboard;
 
 // Inventory items:
 PImage handKeyIcon, keyIcon, blueKeyCardIcon, pinkKeyCardIcon, pliersIcon;
@@ -21,6 +31,12 @@ PImage exitroom_disabled, exitroom_norm, exitroom_mo, exitroom_clicked, menu_nor
 PImage yesbutton_norm, yesbutton_mo, yesbutton_clicked, nobutton_norm, nobutton_mo, nobutton_clicked, options_norm, options_mo, options_clicked, loadbutton_norm, loadbutton_mo, loadbutton_clicked;
 PImage savebutton_norm, savebutton_mo, savebutton_clicked, slot1_disabled, slot2_disabled, slot3_disabled, slot1_enabled, slot2_enabled, slot3_enabled, slot1_mo, slot2_mo, slot3_mo, slot1_clicked;
 PImage slot2_clicked, slot3_clicked;
+
+// Description box text:
+PImage intro_Text, doorLocked_Text, kitchenSpiders_Text, antidote_Text, labComp_Text, victory_Text, sink_Text, bathtub_Text, toilet1_Text, toilet2_Text, cardscanner_Text, cleaningdoorLocked_Text;
+PImage lowerlab_blockeddoor_Text, handscanner_Text, brokenjars_Text, spray_Text, antidotecab_Text, notefound_Text, noticeboard_Text, redcard_Text, bluecard_Text, novels_Text, ducttape_Text, shoebox_Text;
+PImage genfurniture_Text, journals_Text, couch_Text, fridgesmell_Text, fridgekey_Text, table_Text, officenote_Text, deadman_Text, handy_Text, handoff_Text, Lcupboard_Text, stove_Text, toiletmo_Text;
+PImage text_PH1, text_PH2, text_PH3, text_PH4, text_PH5;
 
 //Inventory images:
 PImage blue_keycard, red_keycard, storage_key, cutting_tool, finger_key;
@@ -32,20 +48,42 @@ boolean has_storagekey = false;
 boolean has_fingerkey = false;
 boolean has_cuttingtool = false;
 
-// Previous Room Memory
+//Door Locking variables:
+boolean LowerLab_Locked = true;
+boolean Storage_Locked = true;
+boolean Office_Locked = true;
+boolean Antidote_cabLocked = true;
+
+//Victory conditon:
+boolean infected = true;              
+
+//Has Been Sprayed checker:
+boolean been_Sprayed = false;
+
+// Previous Room Memory:
 int prev_Room = 0;
 
-// Interaction Selection
+// Interaction Selection:
 int selection = 0;
 
-// Frames variable
+// Frame counting variables:
 int current_Frame = 0;
+int wait_Frames = 0;
 
 // GAME AUDIO IMPORT
 import processing.sound.*;
+
+// Background music:
 SoundFile music;
-String audioName = "ES_The Silent Killer.mp3";
-String path;
+
+// Door sound effect:
+SoundFile door_effect;
+
+//Spray sound effect:
+SoundFile spray_effect;
+
+// Music playing variable:
+boolean music_playing = true;
 
 // SET UP THE GAME:
 
@@ -56,8 +94,9 @@ void setup()
   frameRate(60);
   
 // GAME AUDIO
-  path = sketchPath(audioName);
-  music = new SoundFile(this, path);
+  spray_effect = new SoundFile(this,"spray.mp3");
+  door_effect = new SoundFile(this, "door_effect.wav");
+  music = new SoundFile(this, "ES_The Silent Killer.mp3");
   music.loop();
   
 // LOAD THE IMAGES:
@@ -128,12 +167,69 @@ void setup()
         options_mo = loadImage("optionsbutton_mo.png");
         options_clicked = loadImage("optionsbutton_clicked.png");  
         
+    //Checkbox:
+        checkbox_empty = loadImage("Checkbox_empty.png");
+        checkbox_tick = loadImage("Checkbox_tick.png");
+
+//Text Descriptions:
+  intro_Text = loadImage("Intro_text.png");
+  doorLocked_Text = loadImage("DoorLocked_text.png");
+  kitchenSpiders_Text = loadImage("kitchenSpiders_text.png");
+  labComp_Text = loadImage("Labcomputer_Text.png");
+  antidote_Text = loadImage("Antidote_Text.png");
+  victory_Text = loadImage("Victory_Text.png");
+  sink_Text = loadImage("Sink_Text.png");
+  bathtub_Text = loadImage("Bathtub_Text.png");
+  toiletmo_Text = loadImage("Toiletmo_Text.png");
+  
+      toilet1_Text = loadImage("Toilet1_Text.png");          //check for usage
+      toilet2_Text = loadImage("Toilet2_Text.png");          //check for usage
+  
+  cardscanner_Text = loadImage("Scanner_Text.png");
+  cleaningdoorLocked_Text = loadImage("CRdoorslocked_Text.png");
+  lowerlab_blockeddoor_Text = loadImage("LowerLab_Blockeddoor_Text.png");
+  handscanner_Text = loadImage("Handscanner_Text.png");
+  brokenjars_Text = loadImage("Brokenjars_Text.png");
+  spray_Text = loadImage("Spray_Text.png");
+  antidotecab_Text = loadImage("Antidotecab_Text.png");
+  notefound_Text = loadImage("Notefound_Text.png");
+  noticeboard_Text = loadImage("Noticeboard_Text.png");
+  redcard_Text = loadImage("Redcard_Text.png");
+  bluecard_Text = loadImage("Bluecard_Text.png");
+  novels_Text = loadImage("Novels_Text.png");
+  shoebox_Text = loadImage("Shoebox_Text.png");
+  genfurniture_Text = loadImage("GenFurniture_Text.png");
+  ducttape_Text = loadImage("Ducttape_Text.png");
+  journals_Text = loadImage("Journals_Text.png");
+  couch_Text = loadImage("Couch_Text.png");
+  fridgesmell_Text = loadImage("FridgeSmell_Text.png");
+  table_Text = loadImage("Table_Text.png");
+  fridgekey_Text = loadImage("Fridgekey_Text.png");
+  officenote_Text = loadImage("OfficeNote_Text.png");
+  deadman_Text = loadImage("Deadman_Text.png");
+  handy_Text = loadImage("Handyhand_Text.png");
+  handoff_Text = loadImage("Handoff_Text.png");
+  Lcupboard_Text = loadImage("Largecupboard_Text.png");
+  stove_Text = loadImage("Stove_Text.png");
+  
+  text_PH1 = loadImage("textholder1.png");            //check for usage
+  text_PH2 = loadImage("textholder2.png");            //check for usage
+  text_PH3 = loadImage("textholder3.png");            //check for usage
+  text_PH4 = loadImage("textholder4.png");            //check for usage
+  text_PH5 = loadImage("textholder5.png");            //check for usage
+  
 //Inventory Items:
   blue_keycard = loadImage("blueKeyCardIcon.png");
   red_keycard = loadImage("pinkKeyCardIcon.png");
   storage_key = loadImage("keyIcon.PNG");
   finger_key = loadImage("handKeyIcon.PNG");
   cutting_tool = loadImage("pliersIcon.PNG");
+
+// Notes: 
+  bedroom_note = loadImage("Bedroom_note.png");
+  office_note = loadImage("Office_note.png");
+  upperlab_note = loadImage("Upperlab_note.png");
+  lab_noticeboard = loadImage("Lab_noticeboard.png");
   
 // Maps:
   mapHallway1 = loadImage("mapHallway1.png");
@@ -164,13 +260,32 @@ void setup()
   hallway1 = loadImage("hallway1.png");
   hallway2 = loadImage("hallway2.png");
   bedroom = loadImage("bedroom.PNG");
+  bedroom_nocard = loadImage("Bedroom_nocard.png");
   kitchen = loadImage("kitchen.png");
   storage = loadImage("storage.png");
+  storage_nocard = loadImage("Storage_nocard.png");
   bathroom = loadImage("bathroom.png");
   upper_lab = loadImage("Lab1.png");
-  lower_lab = loadImage("Lab2_Temp.png");
+  lower_lab = loadImage("Lab2.png");
   office = loadImage("Office.png");
+  office_nohand = loadImage("Office_nohand.png");
   basement_stairs = loadImage("BasementStairs.png");
+  stairwell1 = loadImage("Stairwell1.jpg");
+  clean_room = loadImage("cleaning_Room.png");
+  spray1 = loadImage ("Spray1.png");
+  spray2 = loadImage ("Spray2.png");
+  spray3 = loadImage ("Spray3.png");
+  entry_stairs = loadImage("Stairwell1.jpg");
+  victory_screen = loadImage("VICTORY.png");
+  
+// Rooms with open doors:
+  H1_storage_open = loadImage("H1_storagedoor_open.png");
+  H1_kitchen_open = loadImage("H1_kitchendoor_open.png");
+  H1_bedroom_open = loadImage("H1_bedroomdoor_open.png");
+  H2_bathroom_open = loadImage("H2_bathroomdoor_open.png");
+  H2_cupboard_open = loadImage("H2_labcupboard_open.png");
+  lab2_office_open = loadImage("Lab2office_open.png");
+  basementstairs_door_open = loadImage("BasementStairs_open.png");
   
 // Inventory:
   handKeyIcon = loadImage("handKeyIcon.PNG");
@@ -186,6 +301,7 @@ void setup()
 // START GAME:
 void draw()
 {
+  
   if (selection == 0){
     Shed_Entrance();
   }
@@ -222,14 +338,26 @@ else if (selection == 8){
   Lower_Lab();
   }
   
-else if(selection == 9){
+else if (selection == 9){
   Office();
   }
   
 else if (selection == 10){
   Basement_Stairs();
   }
-  
+
+else if (selection == 11){
+  Clean_Room();
+  }  
+
+else if (selection == 12){
+  Entry_Stairs();
+  }
+
+else if (selection == 69){
+  Victory();
+  }
+ 
 else if (selection == 73){
   Quit_Menu();
   }
@@ -250,8 +378,9 @@ else if (selection == 99){
   Pause_Menu();
   }
   
-//  FRAME COUNTER
+//  FRAME COUNTERS
   current_Frame += 1;
+  wait_Frames += 1;
 }
 
 void mouseClicked(){  
@@ -273,22 +402,27 @@ void mouseClicked(){
       {
         if ((mouseY >= 194) && (mouseY <= 658))
         {
-          selection = 1;
-          Hallway1();
+          wait_Frames = 0;
+          selection = 12;
+          Entry_Stairs();          
         }
       }
   }
   
 // HALLWAY 1 INTERACTIONS     
   else if(selection == 1){
-// LEAVE ROOM BUTTON                                (disabled until endgame)
-//        if ((mouseX >= 581) && (mouseX <= 937))
-//        {
-//        if ((mouseY >= 777) && (mouseY <= 838))
-//        {
-//          
-//        }
-//      }
+// LEAVE ROOM BUTTON                                (disabled until victory condition met)
+        if ((mouseX >= 581) && (mouseX <= 937))
+        {
+        if ((mouseY >= 777) && (mouseY <= 838))
+        {
+          if (infected == false){
+          door_effect.play();
+          wait_Frames = 0;          
+          Victory();
+          }
+        }
+      }
   
   // MENU BUTTON
         if ((mouseX >= 1530) && (mouseX <= 1838))
@@ -305,18 +439,40 @@ void mouseClicked(){
       {
         if ((mouseY >= 276) && (mouseY <= 497))
         {
-          selection = 5;
-          Storage();
-        }
+          wait_Frames = 0;
+          
+          if (has_storagekey == true){    
+            door_effect.play();
+            
+            while (door_effect.isPlaying() == true){
+              
+              wait_Frames += 1;
+              
+                if (wait_Frames == 80){
+                  selection = 5;
+                  Storage();
+                }            
+            }            
+          }
+        }        
+        
       }
 
   // KITCHEN DOOR INTERACTION
       if ((mouseX >= 359) && (mouseX <= 461))
       {
         if ((mouseY >= 236) && (mouseY <= 563))
-        {
-          selection = 4;
-          Kitchen();
+        {          
+          wait_Frames = 0;
+          door_effect.play();
+          
+          while (door_effect.isPlaying() == true){
+              wait_Frames += 1;
+                if (wait_Frames == 80){
+                  selection = 4;
+                  Kitchen();
+                }          
+            }
         }
       }
 
@@ -324,9 +480,17 @@ void mouseClicked(){
       if ((mouseX >= 68) && (mouseX <= 291))
       {
         if ((mouseY >= 128) && (mouseY <= 749))
-        {
-          selection = 3;
-          Bedroom();
+        {          
+          wait_Frames = 0;
+          door_effect.play();
+          
+          while (door_effect.isPlaying() == true){
+              wait_Frames += 1;
+                if (door_effect.isPlaying() == false || wait_Frames == 80){
+                  selection = 3;
+                  Bedroom();
+                }          
+            }
         }
       }
 
@@ -368,8 +532,17 @@ else if(selection == 2){
       {
         if ((mouseY >= 195) && (mouseY <= 738))
         {
-          selection = 6;
-          Bathroom();
+          current_Frame = 0;
+          wait_Frames = 0;
+          door_effect.play();
+          
+          while (door_effect.isPlaying() == true){
+              wait_Frames += 1;
+                if (door_effect.isPlaying() == false || wait_Frames == 80){
+                  selection = 6;
+                  Bathroom();
+                }          
+            }
         }
       }
       
@@ -392,6 +565,7 @@ else if(selection == 3){
         {
         if ((mouseY >= 777) && (mouseY <= 838))
         {
+          door_effect.play();
           selection = 1;
           Hallway1();
         }
@@ -412,38 +586,10 @@ else if(selection == 3){
       {
         if ((mouseY >= 587) && (mouseY <= 613))
         {
-          has_bluecard = true;
-          //image(,,);
+          has_bluecard = true;          
         }
       } 
-
-  // Journals interaction
-        if ((mouseX >= 693) && (mouseX <= 856))
-      {
-        if ((mouseY >= 447) && (mouseY <= 650))
-        {
-          // image(,,);
-        }
-      }       
- 
-  // Backpack interaction
-        if ((mouseX >= 93) && (mouseX <= 286))
-      {
-        if ((mouseY >= 441) && (mouseY <= 608))
-        {
-          // image(,,);
-        }
-      }  
- 
-  // Couch interaction
-        if ((mouseX >= 951) && (mouseX <= 1451))
-      {
-        if ((mouseY >= 150) && (mouseY <= 516))
-        {
-          // image(,,);
-        }
-      }        
-      
+     
 }
 
 // KITCHEN ROOM INTERACTIONS
@@ -453,6 +599,7 @@ else if (selection == 4){
         {
         if ((mouseY >= 777) && (mouseY <= 838))
         {
+          door_effect.play();
           selection = 1;
           Hallway1();
         }
@@ -473,28 +620,9 @@ else if (selection == 4){
       {
         if ((mouseY >= 83.13) && (mouseY <= 433.13))
         {
-          has_storagekey = true;
-          //image(,,);                    
+          has_storagekey = true;                    
         }
-      }      
-
-  // DINING TABLE INTERACTION
-        if ((mouseX >= 983) && (mouseX <= 1476))
-      {
-        if ((mouseY >= 318) && (mouseY <= 619))
-        {
-          //image(,,);
-        }
-      }
-
-  // STOVE INTERACTION
-        if ((mouseX >= 94) && (mouseX <= 392))
-      {
-        if ((mouseY >= 256) && (mouseY <= 665))
-        {
-          //image(,,);
-        }
-      }      
+      }            
       
 }
 
@@ -505,6 +633,7 @@ else if (selection == 5){
         {
         if ((mouseY >= 777) && (mouseY <= 838))
         {
+          door_effect.play();
           selection = 1;
           Hallway1();
         }
@@ -526,8 +655,7 @@ else if (selection == 5){
         if ((mouseY >= 609.3) && (mouseY <= 658.3))
         {
           has_redcard = true;
-          //image(,,);
-        }
+                  }
       }
 
   // DUCT TAPE INTERACTION
@@ -575,6 +703,7 @@ else if (selection == 6){
         {
         if ((mouseY >= 777) && (mouseY <= 838))
         {
+          door_effect.play();
           selection = 2;
           Hallway2();
         }
@@ -596,27 +725,10 @@ else if (selection == 6){
         if ((mouseY >= 253) && (mouseY <= 618))
         {
           has_cuttingtool = true;
-          //image(,,);
+          
         }
       }
-      
-  // SINK INTERACTION
-        if ((mouseX >= 994) && (mouseX <= 1284))
-      {
-        if ((mouseY >= 66) && (mouseY <= 502))
-        {
-          //image(,,);
-        }
-      }      
-      
-  // BATHTUB INTERACTION
-        if ((mouseX >= 119) && (mouseX <= 574))
-      {
-        if ((mouseY >= 469) && (mouseY <= 767))
-        {
-          //image(,,);
-        }
-      }
+
       
 }
 
@@ -643,41 +755,22 @@ else if(selection == 7){
       }
       
   //  SECRET CABINET DOOR INTERACTION
-        if ((mouseX >= 769) && (mouseX <= 945))
+        if ((mouseX >= 713) && (mouseX <= 903))
       {
-        if ((mouseY >= 57) && (mouseY <= 452))
+        if ((mouseY >= 66) && (mouseY <= 479))
         {
-           selection = 10;
-           Basement_Stairs();
+          wait_Frames = 0;
+          door_effect.play();
+          
+          while (door_effect.isPlaying() == true){
+              wait_Frames += 1;
+                if (door_effect.isPlaying() == false || wait_Frames == 80){
+                  selection = 10;
+                  Basement_Stairs();
+                }          
+            }
         }
-      }
-
-  // DOCUMENTS INTERACTIONS
-        if ((mouseX >= 489) && (mouseX <= 614))
-      {
-        if ((mouseY >= 281) && (mouseY <= 349))
-        {
-          //image(,,);
-        }
-      }      
-
-  // POST-BOARD INTERACTIONS
-        if ((mouseX >= 167) && (mouseX <= 313))
-      {
-        if ((mouseY >= 102) && (mouseY <= 206))
-        {
-          //image(,,);
-        }
-      }         
- 
-  // LAB PC INTERACTIONS
-        if ((mouseX >= 987) && (mouseX <= 1138))
-      {
-        if ((mouseY >= 367) && (mouseY <= 598))
-        {
-          //image(,,);
-        }
-      }      
+      }    
       
 }
 
@@ -688,8 +781,9 @@ else if(selection == 8){
         {
         if ((mouseY >= 777) && (mouseY <= 838))
         {
-          selection = 7;
-          Upper_Lab();
+          door_effect.play();
+          selection = 10;
+          Basement_Stairs();
         }
       }
       
@@ -708,11 +802,73 @@ else if(selection == 8){
         {
         if ((mouseY >= 135) && (mouseY <= 419))
         {
-          selection = 9;
-          Office();
+          if (Office_Locked == false){
+          door_effect.play();
+          wait_Frames = 0;
+          while (door_effect.isPlaying() == true){
+              wait_Frames += 1;
+                if (door_effect.isPlaying() == false || wait_Frames == 80){
+                  selection = 9;
+                  Office();
+                }          
+            }
+          }
         }
       }   
+
+  // OFFICE DOOR KEYPAD INTERACTION
+        if ((mouseX >= 791) && (mouseX <= 840))
+        {
+        if ((mouseY >= 156) && (mouseY <= 215))
+        {
+          if(has_redcard == true){
+          Office_Locked = false;
+          }
+        }
+      } 
       
+  // BROKEN JARS INTERACTION
+        if ((mouseX >= 714) && (mouseX <= 843) || (mouseX >= 913) && (mouseX <= 1102))
+        {
+        if ((mouseY >= 327) && (mouseY <= 676) || (mouseY >= 410) && (mouseY <= 703))
+        {
+          
+        }
+      } 
+
+  // BLOCKED DOOR INTERACTION
+        if ((mouseX >= 1194) && (mouseX <= 1362))
+        {
+        if ((mouseY >= 158) && (mouseY <= 518))
+        {
+          // image(,,);          
+        }
+      }
+      
+  // ANTIDOTE CABINET INTERACTION
+        if ((mouseX >= 251) && (mouseX <= 383))
+        {
+        if ((mouseY >= 110) && (mouseY <= 266))
+        {
+          if (Antidote_cabLocked == false){
+              infected = false;         
+          }
+          
+
+        }
+      }      
+ 
+  // HAND SCANNER INTERACTION
+        if ((mouseX >= 430) && (mouseX <= 492))
+        {
+        if ((mouseY >= 136) && (mouseY <= 205))
+        {
+          if (has_fingerkey == true){
+            Antidote_cabLocked = false;
+          }
+         
+        }        
+      }      
       
 }
 
@@ -723,6 +879,7 @@ else if(selection == 9){
         {
         if ((mouseY >= 777) && (mouseY <= 838))
         {
+          door_effect.play();
           selection = 8;
           Lower_Lab();
         }
@@ -739,39 +896,16 @@ else if(selection == 9){
       }   
       
   // HAND REMOVAL FOR KEY
-        if ((mouseX >= 578) && (mouseX <= 1778))
+        if ((mouseX >= 578) && (mouseX <= 623))
       {
-        if ((mouseY >= 549) && (mouseY <= 630))
+        if ((mouseY >= 549) && (mouseY <= 632))
         {
           if (has_cuttingtool == true){
           has_fingerkey = true;
           }
-          
-     //     else {
-          
-          
-     //     }
-   
         }
       }
       
-  // DEAD MAN INTERACTIONS
-        if ((mouseX >= 292) && (mouseX <= 560) || (mouseX >= 514) && (mouseX <= 775) )
-      {
-        if ((mouseY >= 410) && (mouseY <= 744) || (mouseY >= 128) && (mouseY <= 471))
-        {
-          //image(,,);
-        }
-      }  
-      
-  // NOTES BUTTON
-        if ((mouseX >= 926) && (mouseX <= 999))
-      {
-        if ((mouseY >= 331) && (mouseY <= 394))
-        {
-          //image(,,);
-        }
-      }      
   
 }
 
@@ -782,6 +916,7 @@ else if (selection == 10){
         {
         if ((mouseY >= 777) && (mouseY <= 838))
         {
+          door_effect.play();
           selection = 7;
           Upper_Lab();
         }
@@ -797,21 +932,77 @@ else if (selection == 10){
         }
       }  
       
-  // KEYPAD INTERATION
+  // KEYPAD INTERACTION
         if ((mouseX >= 201) && (mouseX <= 260))
       {
         if ((mouseY >= 231) && (mouseY <= 429))
         {
-                if(has_bluecard == true){
-          selection = 8;
-          Lower_Lab();
-          }
-          
-          else {
-          //image(,,);
+            if(has_bluecard == true){
+            LowerLab_Locked = false;          
           }
         }
       }      
+ 
+  // LOWER LAB DOOR INTERACTION
+        if ((mouseX >= 328) && (mouseX <= 861))
+      {
+        if ((mouseY >= 52) && (mouseY <= 509))
+        {
+          wait_Frames = 0;
+            if (LowerLab_Locked == false && been_Sprayed == false){
+              spray_effect.play();
+              door_effect.play();              
+              selection = 11;
+              Clean_Room();
+            }
+            
+            else if (LowerLab_Locked == false && been_Sprayed == true){
+              door_effect.play();              
+              selection = 11;
+              Clean_Room();
+            
+            }          
+        }
+      }      
+      
+}
+
+// CLEAN ROOM INTERACTIONS
+else if (selection == 11){
+  // LEAVE ROOM BUTTON
+        if ((mouseX >= 581) && (mouseX <= 937))
+        {
+        if ((mouseY >= 777) && (mouseY <= 838))
+        {
+          door_effect.play();
+          selection = 10;
+          Basement_Stairs();
+        }
+      }
+      
+  // MENU BUTTON
+        if ((mouseX >= 1530) && (mouseX <= 1838))
+      {
+        if ((mouseY >= 692) && (mouseY <= 756))
+        {
+          selection = 99;
+          Pause_Menu();
+        }
+      }             
+      
+}
+
+// ENTRY STAIRS INTERACTIONS
+else if (selection == 12){      
+  // MENU BUTTON
+        if ((mouseX >= 1530) && (mouseX <= 1838))
+      {
+        if ((mouseY >= 692) && (mouseY <= 756))
+        {
+          selection = 99;
+          Pause_Menu();
+        }
+      }               
       
 }
 
@@ -858,6 +1049,23 @@ else if (selection == 96){
           Pause_Menu();
         }
       }
+      
+  //  MUTE BUTTON
+        if ((mouseX >= 979) && (mouseX <= 1022))
+      {
+        if ((mouseY >= 316) && (mouseY <= 365))
+        {
+          if (music_playing == true){
+            music.stop();
+            music_playing = false;
+          }
+          
+          else if (music_playing == false){
+            music.loop();
+            music_playing = true;
+          }
+        }
+      }      
 
 }
 
@@ -951,6 +1159,17 @@ else if (selection == 99){
           selection = 10;
           Basement_Stairs();
           } 
+          
+          else if (prev_Room == 11){
+          selection = 11;
+          Clean_Room();
+          }          
+
+          else if (prev_Room == 12){
+          selection = 12;
+          Entry_Stairs();
+          }          
+          
         }
       }
       
@@ -993,6 +1212,6 @@ else if (selection == 99){
           Load_Menu();
         }
       }
-}
+    }
 
 };
