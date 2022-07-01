@@ -33,9 +33,7 @@ void Load_Menu(){
 //Buttons
     image (exitroom_disabled,576,775,365,65);
     image (back_norm,1525,682,319,80);
-    image (slot1_disabled,506,301,471,88);
-    image (slot2_disabled,506,399,471,88);
-    image (slot3_disabled,506,499,471,88);
+
   
     //  MAP SCREEN GLITCH ANIMATOR
     if (current_Frame > 50) {
@@ -71,6 +69,43 @@ void Load_Menu(){
         }
       } 
         
-           
+   // SLOT 1 BUTTON
+        if ((mouseX >= 506) && (mouseX <= 978))
+      {
+        if ((mouseY >= 301) && (mouseY <= 375))
+        {
+            image(slot1_mo,506,299,472,101);
+            if (mousePressed){
+              image(slot1_clicked,506,299,472,90);
+          }
+          
+        }
+      }           
+ 
+  // SLOT 2 BUTTON
+        if ((mouseX >= 506) && (mouseX <= 978))
+      {
+        if ((mouseY >= 399) && (mouseY <= 475))
+        {
+            image(slot2_mo,506,399,472,101);
+            if (mousePressed){
+              image(slot2_clicked,506,399,472,90);
+          }
+          
+        }
+      }
+      
+  // SLOT 3 BUTTON
+        if ((mouseX >= 506) && (mouseX <= 978))
+      {
+        if ((mouseY >= 499) && (mouseY <= 575))
+        {
+            image(slot3_mo,506,499,472,101);
+            if (mousePressed){
+              image(slot3_clicked,506,499,472,90);
+          }
+          
+        }
+      }          
                  
 }

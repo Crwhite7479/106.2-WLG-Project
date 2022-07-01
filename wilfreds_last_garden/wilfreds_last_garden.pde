@@ -1,5 +1,460 @@
 import processing.sound.SoundFile;
 
+// SAVING & LOADING STUFF
+
+// Global variable for the writer:
+PrintWriter output;
+
+// Global variable for the reader:
+BufferedReader reader;
+
+// Are the save slot files accessible? True by default. 
+// Will be checked during reading.
+boolean slot1FilePresent = true;
+boolean slot2FilePresent = true;
+boolean slot3FilePresent = true;
+
+// Which slots are filled?
+boolean slot1Filled;
+boolean slot2Filled;
+boolean slot3Filled;
+
+// Create a class:
+class Slots
+{
+  public
+  // Attributes:
+  boolean hasBlueCard;
+  boolean hasRedCard;
+  boolean hasStorageKey;
+  boolean hasFingerKey;
+  boolean hasCuttingTool;
+  boolean isInfected;
+  boolean beenSprayed;
+  boolean lowerLabLocked;
+  boolean storageRoomLocked;
+  boolean officeLocked;
+  boolean antidoteCabinetLocked;
+  int Selection;
+  int previousRoom;
+  int slotNumber;
+  
+  // Two constructors, one default and one with parameters:
+  Slots()
+  {
+    
+  }
+  
+  Slots(boolean blue, boolean red, boolean storage, boolean finger, boolean tool,
+  boolean infected, boolean sprayed, boolean lowerLab, boolean storageRoom,
+  boolean office, boolean antidoteCabinet, int selectionRoom, int prevRoom,
+  int slot)
+  {
+    hasBlueCard = blue;
+    hasRedCard = red;
+    hasStorageKey = storage;
+    hasFingerKey = finger;
+    hasCuttingTool = tool;
+    isInfected = infected;
+    beenSprayed = sprayed;
+    lowerLabLocked = lowerLab;
+    storageRoomLocked = storageRoom;
+    officeLocked = office;
+    antidoteCabinetLocked = antidoteCabinet;
+    Selection = selectionRoom;
+    previousRoom = prevRoom;
+    slotNumber = slot;
+  }
+  
+
+  void readFile()
+  {
+    // Attempt to open the slot:
+    if (slotNumber == 1)
+    {
+      reader = createReader("slot1.txt");
+    }
+    else if (slotNumber == 2)
+    {
+      reader = createReader("slot2.txt");
+    }
+    else if (slotNumber == 3)
+    {
+      reader = createReader("slot3.txt");
+    }
+    else
+    {
+      println("Error! slotNumber has been assigned an invalid value in the slots class.");
+    }
+    
+    String line = null;
+    try {
+      while ((line = reader.readLine()) != null) {
+        String[] pieces = split(line, TAB);
+      
+        // Reading data for the blue card:
+        if (pieces[0].equals("true"))
+        {
+          
+          has_bluecard = true;
+        }
+        else if (pieces[0].equals("false"))
+        {
+          
+          has_bluecard = false;
+        }
+        else
+        {
+          println("Error! hasBlueCard is invalid.");
+        }
+      
+        // Reading data for the red card:
+        if (pieces[1].equals("true"))
+        {
+          
+          has_redcard = true;
+        }
+        else if (pieces[1].equals("false"))
+        {
+          
+          has_redcard = false;
+        }
+        else
+        {
+          println("Error! hasRedCard is invalid.");
+        }
+      
+        // Reading data for storage key:
+        if (pieces[2].equals("true"))
+        {
+          
+          has_storagekey = true;
+        }
+        else if (pieces[2].equals("false"))
+        {
+          
+          has_storagekey = false;
+        }
+        else
+        {
+          println("Error! hasStorageKey is invalid.");
+        }
+      
+        // Reading data for finger key:
+        if (pieces[3].equals("true"))
+        {
+          
+          has_fingerkey = true;
+        }
+        else if (pieces[3].equals("false"))
+        {
+          
+          has_fingerkey = false;
+        }
+        else
+        {
+          println("Error! hasFingerKey is invalid.");
+        }
+      
+        // Checking data for cutting tool:
+        if (pieces[4].equals("true"))
+        {
+          
+          has_cuttingtool = true;
+        }
+        else if (pieces[4].equals("false"))
+        {
+          
+          has_cuttingtool = false;
+        }
+        else
+        {
+          println("Error! hasCuttingTool is invalid.");
+        }
+      
+        // Reading data for infection:
+        if (pieces[5].equals("true"))
+        {
+          
+          infected = true;
+        }
+        else if (pieces[5].equals("false"))
+        {
+          
+          infected = false;
+        }
+        else
+        {
+          println("Error! isInfected is invalid.");
+        }
+      
+        // Read data on whether the user has been sprayed:
+        if (pieces[6].equals("true"))
+        {
+          
+          been_Sprayed = true;
+        }
+        else if (pieces[6].equals("false"))
+        {
+          
+          been_Sprayed = false;
+        }
+        else
+        {
+          println("Error! beenSprayed is invalid.");
+        }
+      
+        // Checking data for the lower lab doors:
+        if (pieces[7].equals("true"))
+        {
+          
+          LowerLab_Locked = true;
+        }
+        else if (pieces[7].equals("false"))
+        {
+          
+          LowerLab_Locked = false;
+        }
+        else
+        {
+          println("Error! lowerLabLocked is invalid.");
+        }
+      
+        // Checking data for storage room door:
+        if (pieces[8].equals("true"))
+        {
+          
+          Storage_Locked = true;
+        }
+        else if (pieces[8].equals("false"))
+        {
+          
+          Storage_Locked = false;
+        }
+        else
+        {
+          println("Error! storageRoomLocked is invalid.");
+        }
+      
+        // Checking data for the office door:
+        if (pieces[9].equals("true"))
+        {
+          
+          Office_Locked = true;
+        }
+        else if (pieces[9].equals("false"))
+        {
+          
+          Office_Locked = false;
+        }
+        else
+        {
+          println("Error! officeLocked is invalid.");
+        }
+      
+        // Checking data on the antidote cabinet:
+        if (pieces[10].equals("true"))
+        {
+          
+          Antidote_cabLocked = true;
+        }
+        else if (pieces[10].equals("false"))
+        {
+          
+          Antidote_cabLocked = false;
+        }
+        else
+        {
+          println("Error! antidoteCabinet is invalid.");
+        }
+      
+        // Checking data for which room the user is currently in:
+        switch(int(pieces[11]))
+        {
+          case 0:
+          println("The user is at the shed door.");
+          selection = 0;
+          break;
+        
+          case 1:
+          println("The user is in hallway 1.");
+          selection = 1;
+          break;
+        
+          case 2:
+          println("The user is in hallway 2.");
+          selection = 2;
+          break;
+        
+          case 3:
+          println("The user is in the bedroom.");
+          selection = 3;
+          break;
+        
+          case 4:
+          println("The user is in the kitchen.");
+          selection = 4;
+          break;
+        
+          case 5:
+          println("The user is in the storage room.");
+          selection = 5;
+          break;
+        
+          case 6:
+          println("The user is in the bathroom.");
+          selection = 6;
+          break;
+        
+          case 7:
+          println("The user is in the upstairs lab.");
+          selection = 7;
+          break;
+        
+          case 8:
+          println("The user is in the downstairs lab.");
+          selection = 8;
+          break;
+        
+          case 9:
+          println("The user is in the office.");
+          selection = 9;
+          break;
+        
+          case 10:
+          println("The user is in the secret stairwell.");
+          selection = 10;
+          break;
+        
+          case 11:
+          println("The user is in the cleaning room.");
+          selection = 11;
+          break;
+        
+          case 12:
+          println("The user is on the entry stairs.");
+          selection = 12;
+          break;
+        }
+      
+        // Checking data for what the previous room was (for menu usage):
+        switch(int(pieces[12]))
+        {
+          case 0:
+          println("The previous room was outside the shed door.");
+          selection = 0;
+          break;
+        
+          case 1:
+          println("The previous room was hallway 1.");
+          selection = 1;
+          break;
+        
+          case 2:
+          println("The previous room was hallway 2.");
+          selection = 2;
+          break;
+        
+          case 3:
+          println("The previous room was the bedroom.");
+          selection = 3;
+          break;
+        
+          case 4:
+          println("The previous room was the kitchen.");
+          selection = 4;
+          break;
+        
+          case 5:
+          println("The previous room was the storage room.");
+          selection = 5;
+          break;
+        
+          case 6:
+          println("The previous room was the bathroom.");
+          selection = 6;
+          break;
+        
+          case 7:
+          println("The previous room was the upstairs lab.");
+          selection = 7;
+          break;
+        
+          case 8:
+          println("The previous room was the downstairs lab.");
+          selection = 8;
+          break;
+        
+          case 9:
+          println("The previous room was the office.");
+          selection = 9;
+          break;
+        
+          case 10:
+          println("The previous room was the secret stairwell.");
+          selection = 10;
+          break;
+        
+          case 11:
+          println("The previous room was the cleaning room.");
+          selection = 11;
+          break;
+        
+          case 12:
+          println("The previous room was the entry stairs.");
+          selection = 12;
+          break;
+        }
+      }
+      reader.close();
+    } catch (IOException e) {
+      slot1FilePresent = false;
+      println("There is file for slot 1.");
+      e.printStackTrace();
+    }
+  }
+  
+  // For saving...
+  void writeFile()
+  {
+    // Create or overwrite a save file:
+    if (slotNumber == 1)
+    {
+      output = createWriter("slot1.txt");
+    }
+    else if (slotNumber == 2)
+    {
+      output = createWriter("slot2.txt");
+    }
+    else if (slotNumber == 3)
+    {
+      output = createWriter("slot3.txt");
+    }
+    else
+    {
+      println("Error! slotNumber has been assigned an invalid value in the slots class.");
+    }
+    
+    // Fill this file with the game data, each item separated by a tab:
+    output.println(hasBlueCard + "\t" + hasRedCard + "\t" + hasStorageKey + "\t" +
+    hasFingerKey + "\t" + hasCuttingTool + "\t" + isInfected + "\t" + beenSprayed +
+    "\t" + lowerLabLocked + "\t" + storageRoomLocked + "\t" + officeLocked + "\t" +
+    antidoteCabinetLocked + "\t" + selection + "\t" + previousRoom);
+  
+    // Writes the remaining data to the file:
+    output.flush();
+  
+    // Closes the file:
+    output.close();
+  }
+}
+
+// Objects declared outside setup:
+Slots slot1;
+Slots slot2;
+Slots slot3;
+
+
 // IMAGES TO LOAD:
 
 // The main UI image:
@@ -36,7 +491,8 @@ PImage slot2_clicked, slot3_clicked;
 PImage intro_Text, doorLocked_Text, kitchenSpiders_Text, antidote_Text, labComp_Text, victory_Text, sink_Text, bathtub_Text, toilet1_Text, toilet2_Text, cardscanner_Text, cleaningdoorLocked_Text;
 PImage lowerlab_blockeddoor_Text, handscanner_Text, brokenjars_Text, spray_Text, antidotecab_Text, notefound_Text, noticeboard_Text, redcard_Text, bluecard_Text, novels_Text, ducttape_Text, shoebox_Text;
 PImage genfurniture_Text, journals_Text, couch_Text, fridgesmell_Text, fridgekey_Text, table_Text, officenote_Text, deadman_Text, handy_Text, handoff_Text, Lcupboard_Text, stove_Text, toiletmo_Text;
-PImage text_PH1, text_PH2, text_PH3, text_PH4, text_PH5;
+
+PImage text_PH1, text_PH2, text_PH3, text_PH4, text_PH5;          //textbox placeholders
 
 //Inventory images:
 PImage blue_keycard, red_keycard, storage_key, cutting_tool, finger_key;
@@ -89,10 +545,12 @@ boolean music_playing = true;
 
 void setup()
 {
+  fullScreen();
   size(1920, 1080);
   background(0);
   frameRate(60);
   
+ 
 // GAME AUDIO
   spray_effect = new SoundFile(this,"spray.mp3");
   door_effect = new SoundFile(this, "door_effect.wav");
@@ -656,42 +1114,6 @@ else if (selection == 5){
         {
           has_redcard = true;
                   }
-      }
-
-  // DUCT TAPE INTERACTION
-        if ((mouseX >= 882) && (mouseX <= 962))
-      {
-        if ((mouseY >= 309) && (mouseY <= 361))
-        {
-          //image(,,);
-        }
-      }      
- 
-  // BOOKS INTERACTION
-        if ((mouseX >= 1195) && (mouseX <= 1411))
-      {
-        if ((mouseY >= 291) && (mouseY <= 458))
-        {
-          //image(,,);
-        }
-      }       
-
-  // SHOEBOX INTERACTION
-        if ((mouseX >= 808) && (mouseX <= 939))
-      {
-        if ((mouseY >= 682) && (mouseY <= 761))
-        {
-          //image(,,);
-        }
-      }       
-
-  // FURNITURE PILE INTERACTION
-        if ((mouseX >= 55) && (mouseX <= 693))
-      {
-        if ((mouseY >= 55) && (mouseY <= 766))
-        {
-          //image(,,);
-        }
       }      
       
 }
@@ -827,23 +1249,6 @@ else if(selection == 8){
         }
       } 
       
-  // BROKEN JARS INTERACTION
-        if ((mouseX >= 714) && (mouseX <= 843) || (mouseX >= 913) && (mouseX <= 1102))
-        {
-        if ((mouseY >= 327) && (mouseY <= 676) || (mouseY >= 410) && (mouseY <= 703))
-        {
-          
-        }
-      } 
-
-  // BLOCKED DOOR INTERACTION
-        if ((mouseX >= 1194) && (mouseX <= 1362))
-        {
-        if ((mouseY >= 158) && (mouseY <= 518))
-        {
-          // image(,,);          
-        }
-      }
       
   // ANTIDOTE CABINET INTERACTION
         if ((mouseX >= 251) && (mouseX <= 383))
@@ -1080,6 +1485,39 @@ else if (selection == 97){
           Pause_Menu();
         }
       }
+      
+  // SLOT 1 BUTTON
+        if ((mouseX >= 531) && (mouseX <= 1010))
+      {
+        if ((mouseY >= 321) && (mouseY <= 399))
+        {
+          
+              slot1.readFile();
+          
+        }
+      }       
+
+  // SLOT 2 BUTTON
+        if ((mouseX >= 531) && (mouseX <= 1010))
+      {
+        if ((mouseY >= 421) && (mouseY <= 499))
+        {
+          
+            slot2.readFile();
+          
+        }
+      }      
+
+  // SLOT 3 BUTTON
+        if ((mouseX >= 531) && (mouseX <= 1010))
+      {
+        if ((mouseY >= 521) && (mouseY <= 599))
+        {
+          
+           slot3.readFile();
+          
+        }
+      }
 
 }
 
@@ -1094,7 +1532,89 @@ else if (selection == 98){
           Pause_Menu();
         }
       }
-      
+ 
+  // SLOT 1 BUTTON
+        if ((mouseX >= 531) && (mouseX <= 1010))
+      {
+        if ((mouseY >= 321) && (mouseY <= 399))
+        {
+            slot1 = new Slots();
+
+  slot1.hasBlueCard = has_bluecard;
+  slot1.hasRedCard = has_redcard;
+  slot1.hasStorageKey = has_storagekey;
+  slot1.hasFingerKey = has_fingerkey;
+  slot1.hasCuttingTool = has_cuttingtool;
+  slot1.isInfected = infected;
+  slot1.beenSprayed = been_Sprayed;
+  slot1.lowerLabLocked = LowerLab_Locked;
+  slot1.storageRoomLocked = Storage_Locked;
+  slot1.officeLocked = Office_Locked;
+  slot1.antidoteCabinetLocked = Antidote_cabLocked;
+  slot1.Selection = selection;
+  slot1.previousRoom = prev_Room;
+  slot1.slotNumber = 1;
+  
+            slot1.writeFile();
+          
+        }
+      }     
+
+  // SLOT 2 BUTTON
+        if ((mouseX >= 531) && (mouseX <= 1010))
+      {
+        if ((mouseY >= 421) && (mouseY <= 499))
+        {
+            slot2 = new Slots();
+
+  slot2.hasBlueCard = false;
+  slot2.hasRedCard = has_redcard;
+  slot2.hasStorageKey = has_storagekey;
+  slot2.hasFingerKey = has_fingerkey;
+  slot2.hasCuttingTool = has_cuttingtool;
+  slot2.isInfected = infected;
+  slot2.beenSprayed = been_Sprayed;
+  slot2.lowerLabLocked = LowerLab_Locked;
+  slot2.storageRoomLocked = Storage_Locked;
+  slot2.officeLocked = Office_Locked;
+  slot2.antidoteCabinetLocked = Antidote_cabLocked;
+  slot2.Selection = selection;
+  slot2.previousRoom = prev_Room;
+  slot2.slotNumber = 2;
+  
+            slot2.writeFile();
+         
+        }
+      }      
+
+  // SLOT 3 BUTTON
+        if ((mouseX >= 531) && (mouseX <= 1010))
+      {
+        if ((mouseY >= 521) && (mouseY <= 599))
+        {
+            
+  slot3 = new Slots();
+
+  slot3.hasBlueCard = has_bluecard;
+  slot3.hasRedCard = has_redcard;
+  slot3.hasStorageKey = has_storagekey;
+  slot3.hasFingerKey = has_fingerkey;
+  slot3.hasCuttingTool = has_cuttingtool;
+  slot3.isInfected = infected;
+  slot3.beenSprayed = been_Sprayed;
+  slot3.lowerLabLocked = LowerLab_Locked;
+  slot3.storageRoomLocked = Storage_Locked;
+  slot3.officeLocked = Office_Locked;
+  slot3.antidoteCabinetLocked = Antidote_cabLocked;
+  slot3.Selection = selection;
+  slot3.previousRoom = prev_Room;
+  slot3.slotNumber = 3;  
+  
+            slot3.writeFile();
+          
+       }
+     }
+
 }
 
 // PAUSE MENU INTERACTIONS
@@ -1176,7 +1696,7 @@ else if (selection == 99){
   // QUIT BUTTON
         if ((mouseX >= 531) && (mouseX <= 1010))
       {
-        if ((mouseY >= 536) && (mouseY <= 614))
+        if ((mouseY >= 526) && (mouseY <= 614))
         {
           selection = 73;
           Quit_Menu();
