@@ -449,7 +449,7 @@ class Slots
   }
 }
 
-// Objects declared outside setup:
+// Declaring Objects Needed:
 Slots slot1;
 Slots slot2;
 Slots slot3;
@@ -550,6 +550,10 @@ void setup()
   background(0);
   frameRate(60);
   
+  // Define slots:
+  slot1 = new Slots();
+  slot2 = new Slots();
+  slot3 = new Slots();
  
 // GAME AUDIO
   spray_effect = new SoundFile(this,"spray.mp3");
@@ -1491,7 +1495,7 @@ else if (selection == 97){
       {
         if ((mouseY >= 321) && (mouseY <= 399))
         {
-          
+              slot1.slotNumber = 1;
               slot1.readFile();
           
         }
@@ -1502,7 +1506,7 @@ else if (selection == 97){
       {
         if ((mouseY >= 421) && (mouseY <= 499))
         {
-          
+            slot2.slotNumber = 2;
             slot2.readFile();
           
         }
@@ -1513,7 +1517,7 @@ else if (selection == 97){
       {
         if ((mouseY >= 521) && (mouseY <= 599))
         {
-          
+           slot3.slotNumber = 3;
            slot3.readFile();
           
         }
@@ -1538,8 +1542,7 @@ else if (selection == 98){
       {
         if ((mouseY >= 321) && (mouseY <= 399))
         {
-            slot1 = new Slots();
-
+            
   slot1.hasBlueCard = has_bluecard;
   slot1.hasRedCard = has_redcard;
   slot1.hasStorageKey = has_storagekey;
@@ -1565,7 +1568,6 @@ else if (selection == 98){
       {
         if ((mouseY >= 421) && (mouseY <= 499))
         {
-            slot2 = new Slots();
 
   slot2.hasBlueCard = false;
   slot2.hasRedCard = has_redcard;
@@ -1593,8 +1595,6 @@ else if (selection == 98){
         if ((mouseY >= 521) && (mouseY <= 599))
         {
             
-  slot3 = new Slots();
-
   slot3.hasBlueCard = has_bluecard;
   slot3.hasRedCard = has_redcard;
   slot3.hasStorageKey = has_storagekey;
